@@ -1,3 +1,79 @@
+2.8.1 Release notes (2017-06-12)
+=============================================================
+
+Add support for building with Xcode 9 Beta 1.
+
+### Bugfixes
+
+* Fix setting a float property to NaN.
+* Fix a crash when using compact on launch in combination with collection
+  notifications.
+
+2.8.0 Release notes (2017-06-02)
+=============================================================
+
+### API Breaking Changes
+
+* None.
+
+### Enhancements
+
+* Enable encryption on watchOS.
+* Add `-[RLMSyncUser changePassword:forUserID:completion:]` API to change an
+  arbitrary user's password if the current user has administrative privileges
+  and using Realm's 'password' authentication provider.
+  Requires any edition of the Realm Object Server 1.6.0 or later.
+
+### Bugfixes
+
+* Suppress `-Wdocumentation` warnings in Realm C++ headers when using CocoaPods
+  with Xcode 8.3.2.
+* Throw an appropriate error rather than crashing when an RLMArray is assigned
+  to an RLMArray property of a different type.
+* Fix crash in large (>4GB) encrypted Realm files.
+* Improve accuracy of sync progress notifications.
+* Fix an issue where synchronized Realms did not connect to the remote server
+  in certain situations, such as when an application was offline when the Realms
+  were opened but later regained network connectivity.
+
+2.7.0 Release notes (2017-05-03)
+=============================================================
+
+### API Breaking Changes
+
+* None.
+
+### Enhancements
+
+* Use reachability API to minimize the reconnection delay if the network
+  connection was lost.
+* Add `-[RLMSyncUser changePassword:completion:]` API to change the current
+  user's password if using Realm's 'password' authentication provider.
+  Requires any edition of the Realm Object Server 1.4.0 or later.
+* `{RLM}SyncConfiguration` now has an `enableSSLValidation` property
+  (and default parameter in the Swift initializer) to allow SSL validation
+  to be specified on a per-server basis.
+* Transactions between a synced Realm and a Realm Object Server can now
+  exceed 16 MB in size.
+* Add new APIs for changing and retrieving permissions for synchronized Realms.
+  These APIs are intended to replace the existing Realm Object-based permissions
+  system. Requires any edition of the Realm Object Server 1.1.0 or later.
+
+### Bugfixes
+
+* Support Realm model classes defined in Swift with overridden Objective-C
+  names (e.g. `@objc(Foo) class SwiftFoo: Object {}`).
+* Fix `-[RLMMigration enumerateObjects:block:]` returning incorrect `oldObject`
+  objects when enumerating a class name after previously deleting a `newObject`.
+* Fix an issue where `Realm.asyncOpen(...)` would fail to work when opening a
+  synchronized Realm for which the user only had read permissions.
+* Using KVC to set a `List` property to `nil` now clears it to match the
+  behavior of `RLMArray` properties.
+* Fix crash from `!m_awaiting_pong` assertion failure when using synced Realms.
+* Fix poor performance or hangs when performing case-insensitive queries on
+  indexed string properties that contain many characters that don't differ
+  between upper and lower case (e.g., numbers, punctuation).
+
 2.6.2 Release notes (2017-04-21)
 =============================================================
 
